@@ -1,5 +1,6 @@
 class ProductsController < ApplicationController
     def index
-        @products = Product.all
+        @product = "IPHONE 14 PRO MAX"
+        # @products = Product.all
     end
 end
