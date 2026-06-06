@@ -17,7 +17,7 @@ class PostsController < ApplicationController
 
   # POST /posts
   def create
-    @post = Post.new(title: params[:post][:title], content: params[:post][:content])
+    @post = Post.new(post_params)
     if @post.save
       redirect_to @post, notice: "Post was successfully created."
     else
@@ -33,7 +33,7 @@ class PostsController < ApplicationController
   # PATCH /posts/:id
   def update
     @post = Post.find(params[:id])
-    if @post.update(title: params[:post][:title], content: params[:post][:content])
+    if @post.update(post_params)
       redirect_to @post, notice: "Post was successfully updated."
     else
       render :edit, status: :unprocessable_content
@@ -45,5 +45,11 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
     @post.destroy
     redirect_to posts_url, notice: "Post was successfully destroyed."
+  end
+
+  private
+
+  def post_params
+    params.require(:post).permit(:title, :content)
   end
 end
