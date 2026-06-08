@@ -2,4 +2,10 @@ class Post < ApplicationRecord
     validates :title, presence: true
     validates :content, presence: true
     add_reference :posts, :user, foreign_key: true
+
+    # associations
+    belongs_to :creator, class_name: "User", foreign_key: "user_id"
+
+    has_many :post_editors, dependent: :destroy
+    has_many :editors, through: :post_editors
 end
